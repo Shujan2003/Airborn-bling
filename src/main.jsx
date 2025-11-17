@@ -9,7 +9,7 @@ import { requestResetImmediate } from "./controls";
 
 // NOTE: filename is case-sensitive on many systems. If your file is ControlsOverlay.jsx
 // import with the exact same casing as the file.
-import ControlsOverlay from "./components/Temp.jsx";
+import ControlsOverlay from "./components/controls_temp.jsx";
 
 
 import menuBg from "./assets/R.png";
