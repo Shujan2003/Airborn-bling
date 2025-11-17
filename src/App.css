@@ -1,0 +1,366 @@
+/* === Fullscreen Menu Overlay (Airborne Bling style) === */
+
+.menu-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  /* default subtle darkening for pause / background dim */
+  background: rgba(0,0,0,0.0);
+}
+
+/* opaque main menu modifier */
+.menu-screen.menu-opaque {
+  background: rgba(0,0,0,0.95); /* full dark backdrop so game behind is hidden */
+}
+
+/* background image */
+.menu-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  filter: saturate(0.95) blur(0.4px);
+  transform-origin: center center;
+  z-index: 20001;
+  opacity: 0.92; /* tweak to make image faint or strong */
+}
+
+/* dark dim layer to improve contrast for text (used only for pause/transparent menus) */
+.menu-dim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6,6,8,0.62), rgba(8,8,10,0.72));
+  z-index: 20002;
+}
+
+/* layout: left column menu, right image/artwork area */
+.menu-layout {
+  position: relative;
+  z-index: 20003;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(360px, 42%) 1fr; /* left column fixed-ish, right flexible */
+  align-items: center;
+  padding: 6vh 8vw;
+  box-sizing: border-box;
+}
+
+/* left column content (title + menu) */
+.menu-left {
+  color: #fff;
+  padding: 28px;
+  max-width: 760px;
+}
+
+/* big title (left-top) */
+.menu-title {
+  margin: 0 0 22px 0;
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ffd86b, #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 10px 35px rgba(0,0,0,0.6));
+  display: inline-block;
+  animation: title-sheen 3.6s linear infinite;
+}
+
+/* sheen animation across title */
+@keyframes title-sheen {
+  0% { background-position: -200% 0; }
+  50% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* menu buttons column */
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* App.css — add these near your menu styles */
+
+/* Loss-screen variant: place content on left with larger left padding */
+.menu-screen.menu-opaque.loss-left .menu-layout {
+  grid-template-columns: minmax(360px, 38%) 1fr;
+  padding-left: 8vw;
+  align-items: center;
+  justify-items: start;
+}
+
+/* Ensure the left column is left-aligned */
+.menu-screen.menu-opaque.loss-left .menu-left { 
+  text-align: left;
+  padding: 36px;
+  max-width: 520px;
+}
+
+/* Make buttons left-aligned and consistent width */
+.menu-screen.menu-opaque.loss-left .menu-btn {
+  width: 300px;
+  text-align: left;
+}
+
+/* Hide any dimming overlay if you want the crash image brighter */
+.menu-screen.menu-opaque.loss-left .menu-dim {
+  display: none;
+}
+
+
+/* button look (retro/flat panel) */
+.menu-btn {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 16px 20px;
+  font-weight: 800;
+  font-size: 18px;
+  color: #fff;
+  background: rgba(8,8,12,0.45);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45), inset 0 -2px 0 rgba(255,255,255,0.02);
+  transition: transform .14s ease, background .14s ease, box-shadow .14s ease;
+  outline: none;
+}
+
+/* hover / active */
+.menu-btn:hover {
+  transform: translateX(6px);
+  background: rgba(12,12,18,0.68);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.5);
+}
+.menu-btn:active {
+  transform: translateX(2px) scale(0.997);
+}
+
+/* footer under menu */
+.menu-footer {
+  margin-top: 28px;
+  font-size: 12px;
+  opacity: 0.85;
+  color: rgba(255,255,255,0.78);
+}
+
+/* right column artwork (empty or tinted to show scene image) */
+.menu-right {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0,0,0,0.0), rgba(0,0,0,0.12));
+  border-left: 1px solid rgba(255,255,255,0.02);
+  box-sizing: border-box;
+}
+
+/* Responsive: narrow screens stack the menu */
+@media (max-width: 900px) {
+  .menu-layout {
+    grid-template-columns: 1fr;
+    padding: 5vh 6vw;
+  }
+  .menu-right { display: none; }
+  .menu-title { font-size: 36px; }
+  .menu-btn { font-size: 16px; padding: 12px 14px; }
+}
+
+/* ----------------------
+   HUD (warning / gameover)
+   ---------------------- */
+/* New HUD warning style for inline (centered under timer) */
+.hud-timer {
+  pointer-events: none; /* keep existing behavior */
+  position: fixed;
+  left: 50%;
+  top: 12px;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 11100;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+}
+
+/* Keep timer styles as before, but ensure spacing */
+.timer-label { font-size: 11px; letter-spacing: 1px; opacity: 0.85; margin-bottom: 4px; }
+.timer-value { font-weight: 800; font-size: 20px; background: rgba(0,0,0,0.45); padding: 6px 12px; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
+.timer-sub { margin-top: 6px; font-size: 12px; opacity: 0.9; }
+
+/* The inline warning placed under the timer (won't cover the timer or score) */
+.warning.warning-inline {
+  pointer-events: none;
+  display: inline-block;
+  background: rgba(0,0,0,0.75);
+  color: #ffd86b;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  max-width: min(640px, 86vw);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 11150;
+}
+
+/* Keep the specific warning color variants if you already have them */
+.warning.warning-inline.warning-boundary {
+  background: linear-gradient(90deg, rgba(40,30,0,0.95), rgba(60,45,0,0.95));
+  color: #fff6dc;
+  border: 1px solid rgba(255,200,80,0.12);
+}
+.warning.warning-inline.warning-terrain {
+  background: linear-gradient(90deg, rgba(95, 91, 91, 0.95), rgba(86, 85, 85, 0.95));
+  color: #fff;
+  border: 1px solid rgba(255,120,120,0.14);
+}
+
+/* On small screens reduce sizes */
+@media (max-width: 520px) {
+  .timer-value { font-size: 16px; padding: 6px 10px; }
+  .warning.warning-inline { font-size: 13px; padding: 6px 10px; max-width: 92vw; }
+}
+
+/* ----------------------
+   Canvas / Global Reset
+   ---------------------- */
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  background-color: #000;
+  color: white;
+  font-family: system-ui, sans-serif;
+}
+
+/* small-screen tweak */
+@media (max-width:520px) {
+  .menu-panel { width: calc(100% - 36px); padding: 18px; }
+  .menu-title { font-size: 20px; margin-bottom:10px; }
+}
+
+/* HUD: Score (top-right) and Timer (top-center) */
+.hud-timer {
+  pointer-events: none;
+  position: fixed;
+  left: 50%;
+  top: 12px;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 11100;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+}
+
+.timer-label {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.timer-value {
+  font-weight: 800;
+  font-size: 20px;
+  background: rgba(0,0,0,0.45);
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+.timer-sub {
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* Scoreboard top-right */
+.hud-score {
+  pointer-events: none;
+  position: fixed;
+  right: 18px;
+  top: 12px;
+  text-align: right;
+  z-index: 11100;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+}
+
+.score-label {
+  font-size: 11px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+  text-align: right;
+}
+
+.score-value {
+  font-weight: 900;
+  font-size: 20px;
+  background: linear-gradient(180deg, rgba(255,215,80,0.95), rgba(255,180,30,0.95));
+  color: #1b1b1b;
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+/* small-screen tweak: shrink HUD items */
+@media (max-width: 520px) {
+  .timer-value, .score-value { font-size: 16px; padding: 6px 10px; }
+  .timer-sub { display: none; } /* hide subtitle on small screens */
+}
+.controls-overlay .controls-box {
+  position: relative;
+  z-index: 20000;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 40px;
+  margin: auto;
+  max-width: 480px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  color: #fff;
+  text-align: center;
+}
+
+.controls-title {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffd86b;
+}
+
+.controls-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+}
+
+.key {
+  font-weight: 800;
+  background: #ffd86b;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.controls-close {
+  margin-top: 10px;
+  width: 200px;
+}
