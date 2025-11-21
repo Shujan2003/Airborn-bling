@@ -355,7 +355,7 @@ html, body, #root {
 .key {
   font-weight: 800;
   background: #ffd86b;
-  color: black;
+  color: rgb(255, 191, 0);
   padding: 6px 12px;
   border-radius: 6px;
 }

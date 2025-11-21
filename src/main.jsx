@@ -9,7 +9,7 @@ import { requestResetImmediate } from "./controls";
 
 // NOTE: filename is case-sensitive on many systems. If your file is ControlsOverlay.jsx
 // import with the exact same casing as the file.
-import ControlsOverlay from "./components/controlsOverlay.jsx";
+import ControlsOverlay from "./components/ControlsOverlay.jsx";
 
 
 import menuBg from "./assets/R.png";
@@ -288,7 +288,7 @@ function AppRoot() {
     { label: "Exit", onClick: exitGame },
   ];
   const loseItems = [
-    { label: "Retry Level", onClick: restartCurrentLevel },
+    { label: "Retry ", onClick: restartCurrentLevel },
     { label: "Main Menu", onClick: onMainMenu },
     { label: "Exit", onClick: exitGame },
   ];
