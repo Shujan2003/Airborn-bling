@@ -1,5 +1,6 @@
 // src/components/ControlsOverlay.jsx
 import React, { useEffect } from "react";
+import planeBg from "../assets/plane.png";  // ✅ import asset correctly so Vite resolves it
 
 export default function ControlsOverlay({ onClose = () => {} }) {
   useEffect(() => {
@@ -10,7 +11,8 @@ export default function ControlsOverlay({ onClose = () => {} }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const bgUrl = "/assets/controls-bg.png"; // place controls-bg.png in public/assets/
+  // Use imported URL (handled by Vite)
+  const bgUrl = planeBg;
 
   const rows = [
     ["W", "Pitch Up"],
@@ -26,7 +28,12 @@ export default function ControlsOverlay({ onClose = () => {} }) {
   ];
 
   return (
-    <div className="menu-screen menu-opaque controls-overlay" role="dialog" aria-modal="true" style={{ zIndex: 99999 }}>
+    <div
+      className="menu-screen menu-opaque controls-overlay"
+      role="dialog"
+      aria-modal="true"
+      style={{ zIndex: 99999 }}
+    >
       <div
         className="menu-bg"
         style={{
@@ -51,7 +58,13 @@ export default function ControlsOverlay({ onClose = () => {} }) {
         </div>
 
         <div style={{ marginTop: 18 }}>
-          <button className="menu-btn controls-close" style={styles.button} onClick={onClose}>Back</button>
+          <button
+            className="menu-btn controls-close"
+            style={styles.button}
+            onClick={onClose}
+          >
+            Back
+          </button>
         </div>
       </div>
     </div>
