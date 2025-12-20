@@ -56,6 +56,21 @@ window.addEventListener("keyup", (e) => {
 });
 
 /**
+ * Mobile touch control system
+ * Allows virtual buttons to control the plane on mobile devices
+ */
+export function setMobileControl(key, value) {
+  controls[key.toLowerCase()] = value;
+}
+
+// Detect mobile device
+export function isMobileDevice() {
+  return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
+    navigator.userAgent.toLowerCase()
+  );
+}
+
+/**
  * External API: call this to request the same reset behavior as pressing 'R'
  * (will run inside updatePlaneAxis when axes/planePosition are available).
  */

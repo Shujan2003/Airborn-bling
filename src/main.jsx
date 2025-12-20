@@ -10,7 +10,7 @@ import { requestResetImmediate } from "./controls";
 // NOTE: filename is case-sensitive on many systems. If your file is ControlsOverlay.jsx
 // import with the exact same casing as the file.
 import ControlsOverlay from "./components/ControlsOverlay.jsx";
-
+import MobileControls from "./components/MobileControls.jsx";
 
 import menuBg from "./assets/R.png";
 import resumBg from "./assets/plane.png";
@@ -399,6 +399,8 @@ function AppRoot() {
       )}
 
       <HUD warning={warning} warningType={warningType} gameOver={gameOver} score={score} timeLeft={timeLeft} remaining={remainingCoins} level={level} money={money} />
+
+      <MobileControls />
 
       {showMainMenu && <div><MenuOverlay title="AIRBORNE BLING" items={mainMenuItems} backgroundImage={bgMain} opaque={true} /></div>}
 

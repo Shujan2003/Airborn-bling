@@ -364,3 +364,116 @@ html, body, #root {
   margin-top: 10px;
   width: 200px;
 }
+
+/* ==================== MOBILE RESPONSIVE STYLES ==================== */
+
+/* Mobile menu layout (single column) */
+@media (max-width: 768px) {
+  .menu-layout {
+    grid-template-columns: 1fr !important;
+    padding: 4vh 4vw !important;
+  }
+
+  .menu-left {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .menu-title {
+    font-size: 42px;
+    margin-bottom: 16px;
+  }
+
+  .menu-items {
+    gap: 12px;
+  }
+
+  .menu-btn {
+    font-size: 16px;
+    padding: 14px 16px;
+    width: 100%;
+  }
+
+  .menu-right {
+    display: none;
+  }
+
+  .controls-box {
+    left: 4vw !important;
+    top: 5vh !important;
+    max-width: calc(100vw - 32px) !important;
+    padding: 16px !important;
+  }
+
+  .controls-title {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .controls-row {
+    font-size: 14px !important;
+  }
+
+  .key {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-title {
+    font-size: 32px;
+  }
+
+  .menu-btn {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+
+  .menu-left {
+    padding: 12px;
+  }
+
+  .controls-box {
+    left: 2vw !important;
+    top: 3vh !important;
+    max-width: calc(100vw - 16px) !important;
+    padding: 12px !important;
+  }
+
+  .controls-title {
+    font-size: 16px !important;
+  }
+
+  .controls-row {
+    font-size: 12px !important;
+  }
+}
+
+/* Adjust HUD for mobile */
+@media (max-width: 768px) {
+  .warning {
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+  }
+
+  .gameover {
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+  }
+}
+
+/* Touch-friendly mobile menu */
+@media (hover: none) and (pointer: coarse) {
+  .menu-btn:hover {
+    transform: none;
+    background: rgba(12, 12, 18, 0.68);
+  }
+
+  .menu-btn:active {
+    transform: scale(0.98);
+    background: rgba(8, 8, 12, 0.8);
+  }
+}
